@@ -1,0 +1,41 @@
+:root {
+  --black: black;
+  --orange: rgb(218, 155, 39);
+  --white: white;
+}
+
+body {
+  background-color: var(--white);
+}
+.mainContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 0.5fr 0.5fr;
+}
+
+.spanContainer {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 2;
+  grid-row-end: 2;
+  border: solid 0.5rem var(--black);
+  display: flex;
+  justify-content: center;
+  border-radius: 0.2rem 0.1rem 0.2rem 0.1rem;
+  padding: 1rem;
+  background-color: var(--white);
+}
+
+.btn_butt {
+  display: flex;
+  justify-content: center;
+  margin-top: 5rem;
+}
+
+#btn {
+  all: unset;
+  border: solid 0.2rem var(--black);
+  border-radius: 1rem;
+  background-color: var(--white);
+  padding: 0.5rem;
+}
