@@ -1,0 +1,33 @@
+body {
+  margin: 1px;
+}
+
+button {
+  all: unset;
+  font-size: 30px;
+  background-color: inherit;
+  color: inherit;
+
+  border: 2px solid;
+  border-color: inherit;
+  border-radius: 5px;
+  padding-right: 15px;
+  padding-left: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  box-shadow: disabled;
+}
+
+#button_div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.black {
+  background-color: black;
+  color: white;
+  border-color: white;
+  box-shadow: 0 0 20px 5px #48abe0;
+}
