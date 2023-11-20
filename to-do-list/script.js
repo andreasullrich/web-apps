@@ -3,23 +3,28 @@
 const todos = document.querySelector("#btn-add");
 const input = document.querySelector("#newTodo");
 const toDoList = document.querySelector("#to-do-list");
+const remove = document.querySelector("#btn-remove");
+let newArray = [];
 
-const array = [];
-function buttonClick() {
-  /*wenn button gedrückt wird, dann speicher Inhalt im 
-  Eingabefeld und füge diesen hinzu*/
-
-  const inputtext = input.value;
-  //checkbox
-  //id
-  array.push({ checkbox: false, description: inputtext });
+if (localStorage.getItem("newArray")) {
+  newArray = JSON.parse(localStorage.getItem("newArray"));
   showNewArray();
 }
 
 todos.addEventListener("click", buttonClick);
+function buttonClick() {
+  const inputtext = input.value;
+  input.value = "";
+
+  newArray.push({ checkbox: false, description: inputtext });
+  showNewArray();
+
+  localStorage.setItem("newArray", JSON.stringify(newArray));
+}
 
 function showNewArray() {
-  for (const objects of array) {
+  toDoList.innerHTML = "";
+  for (const objects of newArray) {
     const toDoElement = document.createElement("li");
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
@@ -31,3 +36,26 @@ function showNewArray() {
     toDoList.appendChild(toDoElement);
   }
 }
+
+remove.addEventListener("click", function () {
+  const checkedIndexes = [];
+
+  newArray.forEach((obj, index) => {
+    const checkbox = document.querySelectorAll("input[type='checkbox']")[index];
+    if (checkbox.checked) {
+      checkedIndexes.push(index);
+    }
+  });
+
+  checkedIndexes.sort((a, b) => b - a); // sortiert den Index absteigend
+
+  checkedIndexes.forEach((index) => {
+    newArray.splice(index, 1);
+    const toDoElement = document.querySelectorAll("li")[index];
+    if (toDoElement) {
+      toDoElement.remove();
+    }
+  });
+
+  localStorage.setItem("newArray", JSON.stringify(newArray)); // aktualisiert den localStorage
+});
