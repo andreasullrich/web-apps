@@ -15,7 +15,6 @@ getContacts();
 
 function renderContacts() {
   const main = document.querySelector("main");
-
   let count = 0;
 
   function headCount() {
@@ -29,10 +28,19 @@ function renderContacts() {
   headCount();
 
   for (let contact of state.linkedinUser) {
-    const bgImgSection = document.createElement("article");
     const card = document.createElement("section");
+    card.setAttribute("class", "sectionstyle");
     main.appendChild(card);
-    main.appendChild(bgImgSection);
+
+    const backgroundImage = document.createElement("img");
+    backgroundImage.src = contact.backgroundImage;
+    card.appendChild(backgroundImage);
+    backgroundImage.setAttribute("class", "backgroundImage");
+
+    const pic = document.createElement("img");
+    pic.setAttribute("class", "pic");
+    pic.src = contact.picture;
+    card.appendChild(pic);
 
     const profession = document.createElement("p");
     profession.innerText = contact.name.title;
@@ -49,14 +57,6 @@ function renderContacts() {
     const title = document.createElement("p");
     title.innerText = contact.title;
     card.appendChild(title);
-
-    const pic = document.createElement("img");
-    pic.src = contact.picture;
-    card.appendChild(pic);
-
-    const backgroundImage = document.createElement("img");
-    backgroundImage.src = contact.backgroundImage;
-    card.appendChild(backgroundImage);
 
     const mutualConnect = document.createElement("p");
     mutualConnect.innerText =
@@ -75,6 +75,31 @@ function renderContacts() {
         count -= 1;
       }
       headCount();
+    });
+  }
+}
+
+/*
+function getContacts() {
+  fetch("https://dummy-apis.netlify.app/api/contact-suggestions?count=1")
+    .then((response) => response.json())
+    .then((jsonData) => {
+      state.linkedinUser = jsonData[0];
+    });
+}
+
+const removeBtn = document.createElement("button");
+removeBtn.innerHTML = "&#10006;";
+bgImgSection.appendChild(removeBtn);
+connectBtn.addEventListener("click", removeContent);
+
+function removeContent() {
+  const indexRemove = state.linkedinUser.indexOf(contact);
+  if (indexRemove != -1) {
+    state.linkedinUser.splice(indexRemove, 1);
+    getContacts().then((newContact) => {
+      state.linkedinUser.push(newContact);
+      renderContacts();
     });
   }
 }
